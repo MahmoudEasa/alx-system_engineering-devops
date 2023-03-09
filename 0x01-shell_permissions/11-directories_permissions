@@ -1,2 +1,2 @@
 #!/bin/bash
-chmod ugo+x d*/workspace
+chmod -R ugo+x d*
