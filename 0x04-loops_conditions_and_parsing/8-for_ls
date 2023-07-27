@@ -4,9 +4,7 @@
 #	In a list format
 #	Where only the part of the name after the first dash is displayed
 
-DIR="$(ls)"
-
-for i in $DIR; do
-	echo "$i"
+for i in *; do
+	echo "$i" | cut -f2 -d'-'
 done
 
