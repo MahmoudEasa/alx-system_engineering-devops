@@ -1,2 +1,16 @@
 #!/usr/bin/env bash
+# This script is displaying "Best School" 10 times
+# but for the 9th iteration,
+# displays Best School and then Hi on a new line
+
+NAME="Best School"
+COUNT=0
+
+while test $COUNT -lt 10; do
+	echo "$NAME"
+	COUNT=$((COUNT + 1))
+	if test $COUNT -eq 9; then
+		echo "Hi"
+	fi
+done
 
