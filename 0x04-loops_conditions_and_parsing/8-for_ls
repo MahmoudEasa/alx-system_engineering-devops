@@ -1,2 +1,12 @@
 #!/usr/bin/env bash
+# This script for displays:
+#	The content of the current directory
+#	In a list format
+#	Where only the part of the name after the first dash is displayed
+
+DIR="$(ls)"
+
+for i in $DIR; do
+	echo "$i"
+done
 
