@@ -1,3 +1,11 @@
 #!/usr/bin/env bash
 # This script is displaying "Best School" 10 times
 
+NAME="Best School"
+
+for i in {0..10}; do
+	if test $i -lt 10; then
+		echo "$NAME"
+	fi
+done
+
