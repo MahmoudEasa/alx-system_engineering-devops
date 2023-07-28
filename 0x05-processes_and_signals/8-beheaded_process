@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Displays its own PID
+# kills the process 7-highlander
 
-echo $$
+pkill -9 -e -f "7-highlander"
 
