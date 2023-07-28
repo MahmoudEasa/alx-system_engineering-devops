@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-# Displays its own PID
+# Displays To infinity and beyond indefinitely
 
-echo $$
+while test 1 -gt 0; do
+	echo "To infinity and beyond"
+	sleep 2
+done
 
