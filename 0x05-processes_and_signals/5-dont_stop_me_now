@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# Displays its own PID
+# Stops 4-to_infinity_and_beyond process
 
-echo $$
+pid=$(pgrep -f 4-to_infinity_and_beyond)
+
+kill "$pid"
 
