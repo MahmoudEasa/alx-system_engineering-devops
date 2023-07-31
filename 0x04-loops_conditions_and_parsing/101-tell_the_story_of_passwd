@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 # Displays the content of the file /etc/passwd
-#	username
-#	user id
-#	Home directory path for the user
 
 while read -r line; do
 	username=$(echo "$line" | cut -d: -f1)
