@@ -12,11 +12,11 @@ if [ "$1" == "start" ]; then
 	echo "manage_my_process started"
 elif [ "$1" == "stop" ]; then
 	pkill -f ./"$file"
-	sudo rm "$pidfile"
+	sudo rm -f "$pidfile"
 	echo "manage_my_process stopped"
 elif [ "$1" == "restart" ]; then
 	pkill -f ./"$file"
-	sudo rm "$pidfile"
+	sudo rm -f "$pidfile"
 	./"$file" &
 	sudo touch "$pidfile"
 	sudo chmod 777 "$pidfile"
