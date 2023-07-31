@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Stops 7-highlande rprocess without using kill or killall
+
+pid=$(pgrep -f 7-highlander)
+
+kill "$pid"
+
