@@ -4,29 +4,25 @@
 file="manage_my_process"
 pidfile="/var/run/my_process.pid"
 
-if [ $# != 1 ]; then
-	echo "Usage: manage_my_process {start|stop|restart}"
+if [ "$1" == "start" ]; then
+	./"$file" &
+	sudo touch "$pidfile"
+	sudo chmod 777 "$pidfile"
+	echo "$$" > "$pidfile"
+	echo "manage_my_process started"
+elif [ "$1" == "stop" ]; then
+	pkill -f ./"$file"
+	sudo rm "$pidfile"
+	echo "manage_my_process stopped"
+elif [ "$1" == "restart" ]; then
+	pkill -f ./"$file"
+	sudo rm "$pidfile"
+	./"$file" &
+	sudo touch "$pidfile"
+	sudo chmod 777 "$pidfile"
+	echo "$$" > "$pidfile"
+	echo "manage_my_process restarted"
 else
-	if [ "$1" == "start" ]; then
-		./"$file" &
-		sudo touch "$pidfile"
-		sudo chmod 777 "$pidfile"
-		echo "$$" > "$pidfile"
-		echo "manage_my_process started"
-	elif [ "$1" == "stop" ]; then
-		pkill -f ./"$file"
-		sudo rm "$pidfile"
-		echo "manage_my_process stopped"
-	elif [ "$1" == "restart" ]; then
-		pkill -f ./"$file"
-		sudo rm "$pidfile"
-		./"$file" &
-		sudo touch "$pidfile"
-		sudo chmod 777 "$pidfile"
-		echo "$$" > "$pidfile"
-		echo "manage_my_process restarted"
-	else
-		echo "Usage: manage_my_process {start|stop|restart}"
-	fi
+	echo "Usage: manage_my_process {start|stop|restart}"
 fi
 
