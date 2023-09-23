@@ -3,5 +3,4 @@
 
 file_line { '/etc/ssh/sshd_config':
   line  => 'PasswordAuthentication no',
-  match => '^#?PasswordAuthentication\s+$',
 }
