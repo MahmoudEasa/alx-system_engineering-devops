@@ -1,6 +1,7 @@
-#
+# set up client SSH configuration file
+# to connect to a server without typing a password.
 
-file { '/etc/ssh/sshd_config':
-  ensure  => 'persent',
-  contant => 'PasswordAuthentication no',
+file_line { '/etc/ssh/sshd_config':
+  line  => 'PasswordAuthentication no',
+  match => '^#?PasswordAuthentication\s+$',
 }
