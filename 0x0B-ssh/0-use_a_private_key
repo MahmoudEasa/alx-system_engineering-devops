@@ -7,4 +7,3 @@ user="ubuntu"
 server="54.160.79.52"
 
 ssh -i "$private_key" "$user@$server"
-
