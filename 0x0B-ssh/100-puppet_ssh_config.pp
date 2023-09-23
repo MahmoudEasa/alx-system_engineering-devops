@@ -1,12 +1,10 @@
 # set up client SSH configuration file
-# to connect to a server without typing a password.
 
-file_line { 'configuration file':
-  path => '/etc/ssh/sshd_config',
+file_line { 'disable password login':
+  path => '/etc/ssh/ssh_config',
   line => 'PasswordAuthentication no',
 }
-
-file_line { 'add path':
-  path => '/etc/ssh/sshd_config',
-  line => 'IdentityFile ~/.ssh/school',
+file_line { 'add path to find the keys':
+  path => '/etc/ssh/ssh_config',
+  line => 'IdentityFile ~/.ssh/holberton',
 }
