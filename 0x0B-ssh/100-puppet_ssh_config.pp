@@ -1,7 +1,14 @@
 # set up client SSH configuration file
+file_line { 'replace passwordAuthentication':
+  ensure  => 'present',
+  path    => '/etc/ssh/ssh_config',
+  replace => true,
+  line    => 'PasswordAuthentication no',
+  match   => 'PasswordAuthentication yes',
+}
 
-file { '/etc/ssh/sshd_config':
-  ensure  => 'file',
-  content => 'IdentityFile ~/.ssh/school
-	      PasswordAuthentication no',
+file_line { 'add the private key ~/.ssh/holberton':
+  ensure => 'present',
+  path   => '/etc/ssh/ssh_config',
+  line   => 'IdentityFile ~/.ssh/school',
 }
