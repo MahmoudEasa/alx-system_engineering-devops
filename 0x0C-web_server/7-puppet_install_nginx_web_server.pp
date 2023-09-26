@@ -1,6 +1,7 @@
 # Install and configure an Nginx server using Puppet
+include stdlib
 
-exec {'install_nginx':
+exec { 'install_nginx':
   command => 'sudo apt-get -y install nginx',
 }
 
