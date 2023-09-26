@@ -1,13 +1,11 @@
 # Install and configure an Nginx server using Puppet
-include stdlib
 
-exec { 'install_nginx':
-  command => 'sudo apt-get -y install nginx',
+package { 'nginx':
+  ensure => installed,
+  name   => 'nginx',
 }
 
-file { 'root path':
-  ensure  => 'present',
-  path    => '/var/www/html/index.nginx-debian.html',
+file { '/var/www/html/index.nginx-debian.html':
   content => 'Hello World!',
 }
 
@@ -19,6 +17,7 @@ file_line { 'redirect_me':
   multiply => true,
 }
 
-exec { 'restart_nginx':
-  command => 'sudo service nginx restart',
+service { 'nginx':
+  ensure  => running,
+  require => Package['nginx'],
 }
