@@ -3,4 +3,4 @@
 
 echo "Hello Holberton" > /var/www/html/index.html
 sudo service apache2 status
-sudo service apache2 restart
+service apache2 restart
