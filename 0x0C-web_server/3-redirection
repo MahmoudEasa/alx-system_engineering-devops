@@ -1,3 +1,12 @@
 #!/usr/bin/env bash
-# 
+# Configure Nginx server so that /redirect_me is redirecting to another page.
 
+REDIRECT='location /redirect_me {\n\t\treturn 301 https://google.com;\n\t}\n'
+
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
+sudo sed -i "48i $REDIRECT" /etc/nginx/sites-available/default
+sudo service nginx restart
