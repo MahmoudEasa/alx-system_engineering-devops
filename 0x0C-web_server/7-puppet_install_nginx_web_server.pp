@@ -10,14 +10,11 @@ file { '/var/www/html/index.nginx-debian.html':
 }
 
 file_line { 'redirect_me':
-  ensure   => 'present',
-  path     => '/etc/nginx/sites-available/default',
-  after    => 'server_name _;',
-  line     => '\n\tlocation /redirect_me {\n\t\treturn 301 https://google.com;\n\t}\n',
-  multiply => true,
+  path  => '/etc/nginx/sites-available/default',
+  after => 'server_name _;',
+  line  => "\n\tlocation /redirect_me {\n\t\treturn 301 https://google.com;\n\t}\n",
 }
 
 service { 'nginx':
   ensure  => running,
-  require => Package['nginx'],
 }
