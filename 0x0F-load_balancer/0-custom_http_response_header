@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
 # Configure Nginx server so that /redirect_me is redirecting to another page.
 
+SITE_FILE=/etc/nginx/sites-available/default
+CONF_FILE=/etc/nginx/nginx.conf
+
 ERROR_PAGE='\n\n\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\tinternal;\n\t}\n'
 REDIRECT='\n\n\tlocation /redirect_me {\n\t\treturn 301 https://google.com;\n\t}\n'
+ADD_HEADER='\n\n\tadd_header X-Served-By \$hostname;\n'
+
+CHECK_ERR_PAGE=$(cat "$SITE_FILE" | grep 'error_page 404')
+CHECK_REDIR=$(cat "$SITE_FILE" | grep 'location /redirect_me')
+CHECK_X_SERVER_BY=$(cat "$CONF_FILE" | grep 'add_header X-Served-By')
 
 sudo apt-get -y update
 sudo apt-get -y upgrade
@@ -10,7 +18,17 @@ sudo apt-get -y install nginx
 sudo ufw allow 'Nginx HTTP'
 echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
 echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
-sudo sed -i "s@^\tserver_name _;@&$REDIRECT@" /etc/nginx/sites-available/default
-sudo sed -i "s@^\tserver_name _;@&$ERROR_PAGE@" /etc/nginx/sites-available/default
-sudo sed -i "s@^http {@&\n\n\tadd_header X-Served-By \$hostname;\n@" /etc/nginx/nginx.conf
+
+if [ -z "$CHECK_REDIR" ]; then
+        sudo sed -i "s@^\tserver_name _;@&$REDIRECT@" $SITE_FILE
+fi
+
+if [ -z "$CHECK_ERR_PAGE" ]; then
+        sudo sed -i "s@^\tserver_name _;@&$ERROR_PAGE@" $SITE_FILE
+fi
+
+if [ -z "$CHECK_X_SERVER_BY" ]; then
+        sudo sed -i "s@^http {@&$ADD_HEADER@" $CONF_FILE
+fi
+
 sudo service nginx restart
