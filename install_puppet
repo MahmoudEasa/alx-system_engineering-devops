@@ -11,4 +11,4 @@ sudo apt-get install -y ruby-shadow
 sudo apt-get install -y puppet
 
 # Install puppet-lint
-gem install puppet-lint
+sudo gem install puppet-lint
