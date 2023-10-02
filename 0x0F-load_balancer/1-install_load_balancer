@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Install and configure HAproxy on lb-01 server
+
+CONF_FILE=/etc/haproxy/haproxy.cfg
+CHECK_FILE=$(cat "$CONF_FILE" | grep 'frontend http')
+TEXT=\
+"
+frontend http
+        bind *:80
+        mode http
+        default_backend web-backend
+
+backend web-backend
+        balance roundrobin
+        server 355534-web-01 54.160.79.52:80 check
+        server 355534-web-02 52.86.196.120:80 check
+"
+
+sudo apt-get -y update
+sudo apt-get -y upgrade
+
+# Enable a dedicated PPA
+sudo apt-get -y install --no-install-recommends software-properties-common
+sudo add-apt-repository -y ppa:vbernat/haproxy-2.7
+sudo apt-get -y install haproxy=2.7.\*
+sudo apt-get -y install haproxy
+
+if [ -z "$CHECK_FILE" ]; then
+        echo -e "$TEXT" >> $CONF_FILE
+fi
+
+sudo service haproxy restart
