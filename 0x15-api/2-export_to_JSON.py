@@ -6,6 +6,7 @@
 
 
 if __name__ == "__main__":
+    import json
     import requests
     from sys import argv
 
@@ -16,14 +17,18 @@ if __name__ == "__main__":
         todo_url = f"https://jsonplaceholder.typicode.com/todos/"
         req_todo = requests.get(todo_url).json()
         todo_filter = list(filter(lambda obj: obj['userId'] == id, req_todo))
-        done_filter = list(filter(lambda obj: obj['completed'], todo_filter))
 
-        user_name = user['name']
-        total_tasks = len(todo_filter)
-        done_tasks = len(done_filter)
+        user_name = user['username']
+        file_name = f"{id}.json"
 
-        print(f"Employee {user_name} is done with \
-tasks({done_tasks}/{total_tasks}):")
-        for task in done_filter:
-            print("\t ", end='')
-            print(task['title'])
+        tasks = {id: []}
+        for task in todo_filter:
+            obj = {
+                    "task": task['title'],
+                    "completed": task['completed'],
+                    "username": user['username'],
+            }
+            tasks[id].append(obj)
+
+        with open(file_name, 'w') as file:
+            json.dump(tasks, file)
