@@ -25,5 +25,5 @@ if __name__ == "__main__":
         print(f"Employee {user_name} is done with \
 tasks({done_tasks}/{total_tasks}):")
         for task in done_filter:
-            print("     ", end='')
+            print("\t ", end='')
             print(task['title'])
