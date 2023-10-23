@@ -17,10 +17,10 @@ if __name__ == "__main__":
         req_todo = requests.get(todo_url).json()
         todo_filter = list(filter(lambda obj: obj['userId'] == id, req_todo))
 
-        user_name = user['name']
+        user_name = user['username']
         file_name = f"{id}.csv"
 
         with open(file_name, 'w') as file:
             for task in todo_filter:
-                file.write(f'"{id}","{user_name}","{task["completed"]}",\
+                file.write(f'"{task["userId"]}","{user_name}","{task["completed"]}",\
 "{task["title"]}"\n')
