@@ -6,24 +6,28 @@
 
 
 if __name__ == "__main__":
+    import json
     import requests
-    from sys import argv
 
-    if (len(argv) == 2):
-        id = int(argv[1])
-        user_url = f"https://jsonplaceholder.typicode.com/users/{id}"
-        user = requests.get(user_url).json()
-        todo_url = f"https://jsonplaceholder.typicode.com/todos/"
-        req_todo = requests.get(todo_url).json()
-        todo_filter = list(filter(lambda obj: obj['userId'] == id, req_todo))
-        done_filter = list(filter(lambda obj: obj['completed'], todo_filter))
+    users_url = f"https://jsonplaceholder.typicode.com/users/"
+    users = requests.get(users_url).json()
+    todos_url = f"https://jsonplaceholder.typicode.com/todos/"
+    todos = requests.get(todos_url).json()
 
-        user_name = user['name']
-        total_tasks = len(todo_filter)
-        done_tasks = len(done_filter)
+    file_name = f"todo_all_employees.json"
+    tasks = {}
 
-        print(f"Employee {user_name} is done with \
-tasks({done_tasks}/{total_tasks}):")
-        for task in done_filter:
-            print("\t ", end='')
-            print(task['title'])
+    for user in users:
+        tasks[user['id']] = []
+
+        for task in todos:
+            if (task['userId'] == user['id']):
+                obj = {
+                        "username": user['username'],
+                        "task": task['title'],
+                        "completed": task['completed'],
+                }
+                tasks[user['id']].append(obj)
+
+    with open(file_name, 'w') as file:
+        json.dump(tasks, file)
