@@ -154,6 +154,11 @@ pip3 install sqlalchemy
 
 
 
+# Install flask_cors
+pip3 install flask_cors
+
+
+
 # Install request module
 sudo npm install request --global
 export NODE_PATH=/usr/lib/node_modules
