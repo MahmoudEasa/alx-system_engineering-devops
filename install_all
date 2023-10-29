@@ -145,6 +145,15 @@ sudo apt install pep8
 
 
 
+# Install sqlalchemy
+sudo apt install libmysqlclient-dev
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+sudo apt install pkg-config
+pip install mysqlclient
+pip3 install sqlalchemy
+
+
+
 # Install request module
 sudo npm install request --global
 export NODE_PATH=/usr/lib/node_modules
