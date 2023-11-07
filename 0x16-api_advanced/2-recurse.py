@@ -7,11 +7,14 @@
 import requests
 
 
-def recurse(subreddit, hot_list=[], after=""):
+def recurse(subreddit, hot_list=[], after=None, count=0):
     """ Recurse Function """
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     headers = {"User-Agent": "Test"}
-    params = {'after': after}
+    params = {
+            'after': after,
+            'count': count
+            }
     req = requests.get(url, headers=headers, params=params)
 
     if req.status_code == 200:
@@ -23,9 +26,10 @@ def recurse(subreddit, hot_list=[], after=""):
             hot_list.append(title)
 
         after = data.get('after')
+        count += data.get('dist')
 
         if after is not None:
-            return (recurse(subreddit, hot_list, after))
+            return (recurse(subreddit, hot_list, after, count))
 
         return (hot_list)
     else:
