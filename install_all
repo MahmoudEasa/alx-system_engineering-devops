@@ -154,6 +154,17 @@ pip3 install sqlalchemy
 
 
 
+# Install puppet-lint
+sudo apt-get install -y ruby
+sudo gem install puppet-lint -v 2.1.1
+
+
+
+# Install puppet
+sudo apt-get install -y puppet
+
+
+
 # Install flask_cors
 pip3 install flask_cors
 
