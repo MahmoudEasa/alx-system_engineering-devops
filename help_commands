@@ -1,0 +1,31 @@
+# Use the netstat: command to list all open network connections:
+sudo netstat -ano | grep 5001
+
+# This command will output a list of all processes using port 5001,
+# with the PID for each process displayed in the first column.
+sudo lsof -ti :5001
+
+sudo kill -9 <PID>
+
+sudo nginx -t
+sudo service nginx reload
+
+tmux new-session -d 'gunicorn --bind 0.0.0.0:5002 api.v1.app:app'
+pgrep gunicorn
+
+sudo ufw allow 5003
+sudo ufw delete allow 5003
+sudo ufw allow 'Nginx Full'
+sudo ufw reload
+
+# Created a system module file for Ubuntu's init system
+# to automatically start Gunicorn and serve our Flask application when the server boots.
+sudo vi /etc/systemd/system/gunicorn.service
+sudo systemctl daemon-reload
+sudo systemctl start gunicorn.service
+sudo systemctl enable gunicorn.service
+
+# Restart the server so that Nginx can be accessed to the public
+sudo reboot
+
+which gunicorn
