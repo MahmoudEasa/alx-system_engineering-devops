@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 User=ubuntu
-Group=www-data
+Group=ubuntu
 WorkingDirectory=/home/ubuntu/AirBnB_clone_v4
 ExecStart=/home/ubuntu/.local/bin/gunicorn --bind 0.0.0.0:5003 \
 --workers 3 \
