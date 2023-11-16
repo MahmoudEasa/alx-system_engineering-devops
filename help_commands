@@ -29,3 +29,14 @@ sudo systemctl enable gunicorn.service
 sudo reboot
 
 which gunicorn
+
+# make 2000 requests to my server with 100 requests at a time
+ab -c 100 -n 2000 localhost/
+
+# Check Current Limits
+ulimit -a
+
+# Increase File Descriptor Limits
+# Edit the file /etc/default/nginx
+
+
