@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 # Reload Gunicorn in a graceful way
 
+# Find the process ID (PID) of the Gunicorn process
 pid=$(pgrep gunicorn)
 
-if [ -n "$pid" ]; then
-	kill -HUP "$pid"
+if [ -z "$pid" ]; then
+	exit 1
 fi
+
+# Send the HUP signal to gracefully reload Gunicorn
+kill -HUP "$pid"
